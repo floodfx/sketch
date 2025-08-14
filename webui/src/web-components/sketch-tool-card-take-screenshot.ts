@@ -30,6 +30,12 @@ export class SketchToolCardTakeScreenshot extends SketchTailwindElement {
     super.disconnectedCallback();
   }
 
+  private openScreenshotInNewWindow(screenshotUrl: string) {
+    if (screenshotUrl) {
+      window.open(screenshotUrl, '_blank', 'noopener,noreferrer');
+    }
+  }
+
   render() {
     // Parse the input to get selector
     let selector = "";
@@ -87,11 +93,13 @@ export class SketchToolCardTakeScreenshot extends SketchTailwindElement {
                 </div>`
               : html`
                   <img
-                    class="max-w-full max-h-[500px] rounded shadow-md border border-gray-300 dark:border-neutral-600"
+                    class="max-w-full max-h-[500px] rounded shadow-md border border-gray-300 dark:border-neutral-600 cursor-pointer hover:opacity-80 transition-opacity"
                     src="${screenshotUrl}"
                     @load=${() => (this.imageLoaded = true)}
                     @error=${() => (this.loadError = true)}
+                    @click=${() => this.openScreenshotInNewWindow(screenshotUrl)}
                     ?hidden=${!this.imageLoaded}
+                    title="Click to open in new window"
                   />
                   ${this.imageLoaded
                     ? html`<div

@@ -1,0 +1,95 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Documentation/Introduction" />
+
+# Sketch WebUI Components
+
+Welcome to the Sketch WebUI component library! This Storybook contains all the web components used in the Sketch coding assistant application.
+
+## What's Inside
+
+Our component library is organized into several categories:
+
+### 📱 Mobile Components
+- **Mobile App Shell**: The main container for mobile views
+- **Mobile Chat Input**: Chat input specifically designed for mobile interfaces
+- **Mobile Chat**: Chat display optimized for mobile screens
+- **Mobile Title**: Header component with connection status and navigation
+- **Mobile Diff**: Code diff viewer for mobile
+- **Mobile Shell**: Base shell component for mobile layouts
+
+### 🖥️ Desktop Components
+- **Sketch App Shell**: Main application container
+- **Sketch Chat Input**: Desktop chat input component
+- **Sketch Call Status**: Connection status indicator
+- **Sketch Commits**: Git commit display component
+- **Sketch Container Status**: Container status monitoring
+- **Sketch Diff**: Code diff viewer for desktop
+- **Sketch Timeline**: Event timeline component
+
+## Development Guidelines
+
+### Component Architecture
+All components extend from `SketchTailwindElement`, which is a custom base class that:
+- Extends Lit Element
+- Disables Shadow DOM for better Tailwind CSS integration
+- Provides consistent styling patterns
+
+### Styling
+- Components use **Tailwind CSS** for styling
+- Dark mode support is built-in with `dark:` prefixes
+- Responsive design using Tailwind's responsive utilities
+
+### TypeScript Integration
+- All components are written in TypeScript
+- Props are strongly typed using Lit decorators (`@property`, `@state`)
+- Type definitions are generated from Go structs using `go2ts`
+
+## Using This Storybook
+
+### Viewing Components
+- Browse components by category in the sidebar
+- Use the **Controls** panel to interact with component properties
+- Switch between **Canvas** and **Docs** tabs for different views
+- Test **accessibility** with the built-in a11y addon
+- View components in different **viewports** (mobile, tablet, desktop)
+
+### Development Workflow
+1. **Create** new stories for components as you build them
+2. **Test** different states and edge cases using controls
+3. **Document** component APIs and usage patterns
+4. **Validate** accessibility compliance
+5. **Review** responsive behavior across devices
+
+### Running Storybook
+
+```bash
+# Start Storybook development server
+npm run storybook
+
+# Build Storybook for production
+npm run build-storybook
+
+# Run component tests with Vitest
+npx vitest --project=storybook
+```
+
+## Component Testing
+
+This Storybook is configured with:
+- **Vitest** integration for component testing
+- **Accessibility testing** with @storybook/addon-a11y
+- **Visual regression testing** capabilities
+- **Interaction testing** for user workflows
+
+## Next Steps
+
+1. **Explore** the existing components to understand the patterns
+2. **Create** stories for any new components you build
+3. **Test** components across different states and viewports
+4. **Document** complex interactions and edge cases
+5. **Share** this Storybook with your team for design reviews
+
+---
+
+*This Storybook is part of the Sketch project - an agentic coding environment that helps users accomplish coding tasks through autonomous analysis and implementation.*

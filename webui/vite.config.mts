@@ -1,11 +1,21 @@
+/// <reference types="vitest/config" />
 import { hmrPlugin, presets } from "vite-plugin-web-components-hmr";
 import { defineConfig } from "vite";
 import tailwindcss from "@tailwindcss/vite";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { storybookTest } from "@storybook/addon-vitest/vitest-plugin";
+const dirname =
+  typeof __dirname !== "undefined"
+    ? __dirname
+    : path.dirname(fileURLToPath(import.meta.url));
 
+// More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
   // Define build-time constants for compatibility with production build
   define: {
-    __MONACO_HASH__: JSON.stringify("dev"), // Use 'dev' as hash in development
+    __MONACO_HASH__: JSON.stringify("dev"),
+    // Use 'dev' as hash in development
     __MERMAID_HASH__: JSON.stringify("dev"), // Use 'dev' as hash in development
   },
   plugins: [
@@ -36,39 +46,45 @@ export default defineConfig({
           if (req.url?.startsWith("/static/editor.worker.js")) {
             const workerPath =
               "/node_modules/monaco-editor/esm/vs/editor/editor.worker.js";
-            res.writeHead(302, { Location: workerPath });
+            res.writeHead(302, {
+              Location: workerPath,
+            });
             res.end();
             return;
           }
-
           if (req.url?.startsWith("/static/json.worker.js")) {
             const workerPath =
               "/node_modules/monaco-editor/esm/vs/language/json/json.worker.js";
-            res.writeHead(302, { Location: workerPath });
+            res.writeHead(302, {
+              Location: workerPath,
+            });
             res.end();
             return;
           }
-
           if (req.url?.startsWith("/static/css.worker.js")) {
             const workerPath =
               "/node_modules/monaco-editor/esm/vs/language/css/css.worker.js";
-            res.writeHead(302, { Location: workerPath });
+            res.writeHead(302, {
+              Location: workerPath,
+            });
             res.end();
             return;
           }
-
           if (req.url?.startsWith("/static/html.worker.js")) {
             const workerPath =
               "/node_modules/monaco-editor/esm/vs/language/html/html.worker.js";
-            res.writeHead(302, { Location: workerPath });
+            res.writeHead(302, {
+              Location: workerPath,
+            });
             res.end();
             return;
           }
-
           if (req.url?.startsWith("/static/ts.worker.js")) {
             const workerPath =
               "/node_modules/monaco-editor/esm/vs/language/typescript/ts.worker.js";
-            res.writeHead(302, { Location: workerPath });
+            res.writeHead(302, {
+              Location: workerPath,
+            });
             res.end();
             return;
           }
@@ -79,11 +95,12 @@ export default defineConfig({
           ) {
             const cssPath =
               "/node_modules/monaco-editor/min/vs/editor/editor.main.css";
-            res.writeHead(302, { Location: cssPath });
+            res.writeHead(302, {
+              Location: cssPath,
+            });
             res.end();
             return;
           }
-
           if (
             req.url?.startsWith(
               "/static/monaco/min/vs/base/browser/ui/codicons/codicon/codicon.ttf",
@@ -91,11 +108,12 @@ export default defineConfig({
           ) {
             const fontPath =
               "/node_modules/monaco-editor/min/vs/base/browser/ui/codicons/codicon/codicon.ttf";
-            res.writeHead(302, { Location: fontPath });
+            res.writeHead(302, {
+              Location: fontPath,
+            });
             res.end();
             return;
           }
-
           next();
         });
       },
@@ -142,5 +160,33 @@ export default defineConfig({
         },
       },
     },
+  },
+  test: {
+    projects: [
+      {
+        extends: true,
+        plugins: [
+          // The plugin will run tests for the stories defined in your Storybook config
+          // See options at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon#storybooktest
+          storybookTest({
+            configDir: path.join(dirname, ".storybook"),
+          }),
+        ],
+        test: {
+          name: "storybook",
+          browser: {
+            enabled: true,
+            headless: true,
+            provider: "playwright",
+            instances: [
+              {
+                browser: "chromium",
+              },
+            ],
+          },
+          setupFiles: [".storybook/vitest.setup.ts"],
+        },
+      },
+    ],
   },
 });

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import './mobile-chat.js';
-import { AgentMessage, CodingAgentMessageType } from '../types.js';
+import './mobile-chat';
+import { AgentMessage, CodingAgentMessageType } from '../types';
 
 type MobileChatElement = {
   messages: AgentMessage[];

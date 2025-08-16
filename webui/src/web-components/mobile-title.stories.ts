@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import './mobile-title.js';
-import { ConnectionStatus } from '../data.js';
+import './mobile-title';
+import { ConnectionStatus } from '../data';
 
 type MobileTitleElement = {
   connectionStatus: ConnectionStatus;

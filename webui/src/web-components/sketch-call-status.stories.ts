@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import './sketch-call-status.js';
+import './sketch-call-status';
 
 type SketchCallStatusElement = {
   isDisconnected: boolean;

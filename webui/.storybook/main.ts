@@ -1,4 +1,5 @@
 import type { StorybookConfig } from '@storybook/web-components-vite';
+import { mergeConfig } from 'vite';
 
 const config: StorybookConfig = {
   "stories": [
@@ -19,6 +20,18 @@ const config: StorybookConfig = {
     "name": "@storybook/web-components-vite",
     "options": {}
   },
-  "staticDirs": ['../dist']
+  "staticDirs": ['../dist'],
+  
+  async viteFinal(config) {
+    return mergeConfig(config, {
+      server: {
+        fs: {
+          allow: ['..'],
+        },
+      },
+      // Vite will handle HMR automatically for TypeScript files
+      // The web-components-hmr plugin from main vite config will be used
+    });
+  },
 };
 export default config;

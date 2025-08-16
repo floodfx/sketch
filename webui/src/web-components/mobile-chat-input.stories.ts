@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import './mobile-chat-input.js';
+import './mobile-chat-input';
 
 type MobileChatInputElement = {
   disabled: boolean;
